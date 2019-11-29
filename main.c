@@ -6,7 +6,7 @@
 /*   By: tbruinem <tbruinem@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2019/11/13 13:16:33 by tbruinem       #+#    #+#                */
-/*   Updated: 2019/11/19 17:13:40 by tbruinem      ########   odam.nl         */
+/*   Updated: 2019/11/29 14:39:21 by tbruinem      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,25 +24,13 @@ int		ft_validate_input(const char *str, va_list list)
 	{
 		if (str[i] == '%')
 		{
-			data = get_data(str + i, cpy);
+			get_data(str + i, cpy, &data);
 			if (compatibility_check(data) == 0)
 				return (0);
 		}
 		i++;
 	}
 	return (1);
-}
-
-int		skip_to_next(const char *str)
-{
-	int i;
-
-	i = 1;
-	while (str[i] && !match(str[i], VALID_TYPE))
-		i++;
-	if (str[i] != 0)
-		return (i + 1);
-	return (i);
 }
 
 int		ft_printf(const char *str, ...)
@@ -55,11 +43,10 @@ int		ft_printf(const char *str, ...)
 	va_start(list, str);
 	while (*str)
 	{
-		if (*str == '%')
+		if (*str == '%' && *(str + 1) != 0)
 		{
-			data = get_data(str + 1, list);
-			count += make_string(data, list);
-			str += skip_to_next(str);
+			str += get_data(str + 1, list, &data);
+			make_string(data, list, &count);
 		}
 		else
 		{
@@ -79,11 +66,11 @@ int		main(int argc, char **input)
 	long adress;
 	int n;
 
-	n = ft_printf("%s ", "aa");
-	printf("\n%d\n", n);
+	n = ft_printf("dwfdg");
+//	printf("\n%d\n", n);
 	str = &arr[4];
 	adress = (long)str;
-	printf("%#lx\n", (long)str);
-	printf("%p\n", (long)str);
+//	printf("%#lx\n", (long)str);
+//	printf("%p\n", (long)str);
 	return (0);
 }

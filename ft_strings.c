@@ -6,7 +6,7 @@
 /*   By: tbruinem <tbruinem@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2019/11/18 18:22:54 by tbruinem       #+#    #+#                */
-/*   Updated: 2019/11/19 16:29:28 by tbruinem      ########   odam.nl         */
+/*   Updated: 2019/11/29 14:37:09 by tbruinem      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -113,6 +113,11 @@ char	*ft_itoa(t_data data, long long nb)
 		str = malloc(size + 1);
 	str = assign_words(data, nb, size - 1, str);
 	return (str);
+}
+
+int		ft_output(char *str, t_data data)
+{
+	return (1);
 }
 
 /* int		main(void)

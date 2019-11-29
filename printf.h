@@ -6,9 +6,16 @@
 /*   By: tbruinem <tbruinem@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2019/11/13 13:16:53 by tbruinem       #+#    #+#                */
-/*   Updated: 2019/11/19 16:05:33 by tbruinem      ########   odam.nl         */
+/*   Updated: 2019/11/29 14:36:32 by tbruinem      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
+
+//	REMOVE THIS://
+
+#include <stdio.h>
+
+
+
 
 #ifndef PRINTF_H
 # define PRINTF_H
@@ -31,9 +38,9 @@ typedef	struct	s_data
 }				t_data;
 
 int				ft_printf(const char *str, ...);
-t_data			get_data(const char *str, va_list list);
+int				get_data(const char *str, va_list list, t_data *data);
 int				compatibility_check(t_data data);
-int				make_string(t_data data, va_list list);
+void			make_string(t_data data, va_list list, int *count);
 char			*ft_strdup(const char *s1);
 char			*ft_itoa(t_data data, long long nb);
 int				ft_atoi(const char *str);

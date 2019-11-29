@@ -6,7 +6,7 @@
 /*   By: tbruinem <tbruinem@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2019/11/19 18:11:20 by tbruinem       #+#    #+#                */
-/*   Updated: 2019/11/19 19:24:04 by tbruinem      ########   odam.nl         */
+/*   Updated: 2019/11/20 12:28:14 by tbruinem      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,11 +31,4 @@ int		main(void)
 {
 	print_bits(L'ø');
 	return (0);
-}
-
-while (bytes_read != 0)
-{
-
-
-
 }
