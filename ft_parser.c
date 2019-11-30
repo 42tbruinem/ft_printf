@@ -6,7 +6,7 @@
 /*   By: tbruinem <tbruinem@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2019/11/18 16:45:26 by tbruinem       #+#    #+#                */
-/*   Updated: 2019/11/30 17:43:37 by tbruinem      ########   odam.nl         */
+/*   Updated: 2019/11/30 18:19:13 by tbruinem      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,7 @@ int		get_flags(t_data *data, const char *str, va_list list)
 		data->direction = 1;
 		data->padding = ' ';
 	}
-	if (*str == '0' && data->direction == 0)
+	if (*str == '0' && data->direction == 0 && data->precision == 0)
 		data->padding = '0';
 	if (*str == '.')
 	{
@@ -108,7 +108,10 @@ void	make_string(t_data data, va_list list, int *count)
 	if (data.type == 'x' || data.type == 'X' || data.type == 'p')
 		str = ft_ultoa(data, va_arg(list, unsigned long));
 	if (data.type == 's')
+	{
 		str = ft_strdup(va_arg(list, char *), data);
+//		printf("string: %s\n", str);
+	}
 //	printf("this didnt fail yet\n");
 	ft_output(str, data, count);
 }

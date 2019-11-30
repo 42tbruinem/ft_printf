@@ -6,7 +6,7 @@
 /*   By: tbruinem <tbruinem@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2019/10/29 17:40:17 by tbruinem       #+#    #+#                */
-/*   Updated: 2019/11/30 13:30:05 by tbruinem      ########   odam.nl         */
+/*   Updated: 2019/11/30 18:21:36 by tbruinem      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,9 +19,11 @@ char	*ft_strdup(const char *s1, t_data data)
 	char	*dup;
 
 	len = 0;
+	if (s1 == NULL)
+		return (ft_strdup("(null)", data));
 	while (s1[len])
 		len++;
-	if (len > data.max_width)
+	if (len > data.max_width && data.precision == 1)
 		len = data.max_width;
 	dup = malloc(sizeof(char) * (len + 1));
 	if (dup == NULL)

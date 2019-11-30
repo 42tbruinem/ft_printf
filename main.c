@@ -13,7 +13,8 @@
 #include "printf.h"
 #include <stdio.h>
 
-#define INPUT "%p\n", &arr
+#define INPUT "%p, %5.2d, %5c, %9s, %*x\n", &arr, -234, 'k', NULL, 5, 3454687454
+//#define INPUT "%5c, %2.1s, %*x\n", 'k', "wal", 5, 345468745435345
 
 int		main(int argc, char **input)
 {
@@ -24,12 +25,6 @@ int		main(int argc, char **input)
 
 	n = -3245;
 	printf("mine count: %d\n", ft_printf(INPUT));
-//	printf("\n");
 	printf("real count: %d\n", printf(INPUT));
-//	printf("%-23d", 3245);
-//	str = &arr[4];
-//	adress = (long)str;
-//	printf("%#lx\n", (long)str);
-//	printf("%p\n", (long)str);
 	return (0);
 }

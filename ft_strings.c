@@ -6,7 +6,7 @@
 /*   By: tbruinem <tbruinem@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2019/11/18 18:22:54 by tbruinem       #+#    #+#                */
-/*   Updated: 2019/11/30 17:51:24 by tbruinem      ########   odam.nl         */
+/*   Updated: 2019/11/30 18:05:15 by tbruinem      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -171,6 +171,8 @@ void	ft_output(char *str, t_data data, int *count)
 		}
 	if (data.type == 'p')
 		*count += ft_putstr("0x", data);
+//	print_data(data);
+//	printf("\ntype: %c, %d\n", data.type, len);
 	*count += ft_putstr(str, data);
 	if (data.direction == 1)
 		while (i < data.min_width - len)
