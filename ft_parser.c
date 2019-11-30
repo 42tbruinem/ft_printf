@@ -6,7 +6,7 @@
 /*   By: tbruinem <tbruinem@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2019/11/18 16:45:26 by tbruinem       #+#    #+#                */
-/*   Updated: 2019/11/29 14:36:12 by tbruinem      ########   odam.nl         */
+/*   Updated: 2019/11/30 17:43:37 by tbruinem      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,8 +26,11 @@ int		match(char c, char *set)
 	return (0);
 }
 
-void	get_flags(t_data *data, const char *str, va_list list)
+int		get_flags(t_data *data, const char *str, va_list list)
 {
+	int size;
+
+	size = 1;
 	if (*str == '-')
 	{
 		data->direction = 1;
@@ -36,42 +39,46 @@ void	get_flags(t_data *data, const char *str, va_list list)
 	if (*str == '0' && data->direction == 0)
 		data->padding = '0';
 	if (*str == '.')
+	{
 		data->precision = 1;
+		data->padding = ' ';
+	}
 	if (data->precision == 1 && (*str >= '0' && *str <= '9'))
-		data->max_width = ft_atoi(str);
+		data->max_width = ft_atol(str, &size);
 	if (data->precision == 0 && (*str >= '0' && *str <= '9'))
-		data->min_width = ft_atoi(str);
+		data->min_width = ft_atol(str, &size);
 	if (data->precision == 0 && *str == '*')
 		data->min_width = va_arg(list, int);
 	if (data->precision == 1 && *str == '*')
 		data->max_width = va_arg(list, int);
+	return (size);
 }
 
-int		get_data(const char *str, va_list list, t_data *data)
+int		get_data(const char *str, va_list list, t_data *data, int *count)
 {
 	int i;
 
-	i = 0;
+	i = 1;
 	data->min_width = 0;
 	data->max_width = 0;
 	data->type = 0;
 	data->direction = 0;
-	data->padding = 0;
+	data->padding = ' ';
 	data->precision = 0;
-	if (str[i] == '%')
-		data->type = '%';
-	while (str[i] != 0 && str[i] != '%')
+	while (match(str[i], VALID_TYPE) == 0 && str[i])
 	{
-		if (match(str[i], VALID_TYPE))
+		if (match(str[i], VALID_FLAG))
+			i += get_flags(data, str + i, list);
+		else
 		{
-			data->type = str[i];
+			if (str[i + 1] != '%')
+				*count += ft_putchar('%');
 			return (i);
 		}
-		else if (match(str[i], VALID_FLAG))
-			get_flags(data, str + i, list);
-		i++;
 	}
-	return (i);
+	if (match(str[i], VALID_TYPE))
+		data->type = str[i];
+	return (i + 1);
 }
 
 int		compatibility_check(t_data data)
@@ -81,14 +88,27 @@ int		compatibility_check(t_data data)
 
 void	make_string(t_data data, va_list list, int *count)
 {
-	const char	*str;
+	char	*str;
 
 	str = NULL;
-	if (data.type == 'd' || data.type == 'i' || data.type == 'u')
+	if (data.type == 0)
+		return ;
+	if (data.type == 'c' || data.type == '%')
+	{
+		str = (char *)malloc(2);
+		str[0] = data.type;
+		if (data.type == 'c')
+			str[0] = va_arg(list, int);
+		str[1] = 0;
+	}
+	if (data.type == 'n')
+		str = ft_itoa(data, *count);
+	if (data.type == 'd' || data.type == 'i')
 		str = ft_itoa(data, va_arg(list, int));
+	if (data.type == 'x' || data.type == 'X' || data.type == 'p')
+		str = ft_ultoa(data, va_arg(list, unsigned long));
 	if (data.type == 's')
-		str = ft_strdup(va_arg(list, char *));
-	if (data.type == 'X' || data.type == 'x')
-		str = ft_itoa(data, va_arg(list, int));
-	*count += ft_putstr(str);
+		str = ft_strdup(va_arg(list, char *), data);
+//	printf("this didnt fail yet\n");
+	ft_output(str, data, count);
 }

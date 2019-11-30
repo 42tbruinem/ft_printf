@@ -1,42 +1,39 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        ::::::::            */
-/*   ft_atoi.c                                          :+:    :+:            */
+/*   ft_atol.c                                          :+:    :+:            */
 /*                                                     +:+                    */
 /*   By: tbruinem <tbruinem@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2019/10/28 13:24:56 by tbruinem       #+#    #+#                */
-/*   Updated: 2019/11/19 14:49:15 by tbruinem      ########   odam.nl         */
+/*   Updated: 2019/11/30 16:59:33 by tbruinem      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "printf.h"
 
-int		ft_atoi(const char *str)
+long long	ft_atol(const char *str, int *size)
 {
-	int					n;
+	long long			n;
 	unsigned long long	res;
+	int					i;
 
+	i = 0;
 	n = 1;
 	res = 0;
-	while (*str && ((*str >= 9 && *str <= 13) || *str == ' '))
-		str++;
-	if (*str && (*str == '-' || *str == '+'))
+	while (str[i] && ((str[i] >= 9 && str[i] <= 13) || str[i] == ' '))
+		i++;
+	if (str[i] && (str[i] == '-' || str[i] == '+'))
 	{
-		if (*str == '-')
+		if (str[i] == '-')
 			n = n * -1;
-		str++;
+		i++;
 	}
-	while (*str && (*str >= '0' && *str <= '9'))
+	while (str[i] && (str[i] >= '0' && str[i] <= '9'))
 	{
-		if (res > 9223372036854775807)
-		{
-			if (n == -1)
-				return (0);
-			return (-1);
-		}
-		res = res * 10 + (*str - '0');
-		str++;
+		res = res * 10 + (str[i] - '0');
+		i++;
 	}
+	*size += (i - 1);
 	return (res * n);
 }
