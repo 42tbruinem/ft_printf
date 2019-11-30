@@ -13,18 +13,13 @@
 #include "printf.h"
 #include <stdio.h>
 
-#define INPUT "%8.19o", -2345634
-//#define INPUT "%5c, %2.1s, %*x\n", 'k', "wal", 5, 345468745435345
+//#define INPUT "%%b"
+#define INPUT "%5c, %2.1s, %*u\n", 'k', "wal", 5, 34546
 
-int		main(int argc, char **input)
+int		main(void)
 {
-	char arr[40];
-	char *str;
-	long adress;
-	int n;
-
-	n = -3245;
 	printf("mine count: %d\n", ft_printf(INPUT));
+//	printf("\n");
 	printf("real count: %d\n", printf(INPUT));
 	return (0);
 }

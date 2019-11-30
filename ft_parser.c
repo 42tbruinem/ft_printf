@@ -6,7 +6,7 @@
 /*   By: tbruinem <tbruinem@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2019/11/18 16:45:26 by tbruinem       #+#    #+#                */
-/*   Updated: 2019/11/30 18:36:40 by tbruinem      ########   odam.nl         */
+/*   Updated: 2019/11/30 19:28:50 by tbruinem      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,6 +54,12 @@ int		get_flags(t_data *data, const char *str, va_list list)
 	return (size);
 }
 
+int		compatibility_check(t_data data, int *count)
+{
+	data = data;
+	return (*count);
+}
+
 int		get_data(const char *str, va_list list, t_data *data, int *count)
 {
 	int i;
@@ -73,17 +79,13 @@ int		get_data(const char *str, va_list list, t_data *data, int *count)
 		{
 			if (str[i + 1] != '%')
 				*count += ft_putchar('%');
-			return (i);
+			return (i + 1);
 		}
 	}
 	if (match(str[i], VALID_TYPE))
 		data->type = str[i];
+	*count = compatibility_check(*data, count);
 	return (i + 1);
-}
-
-int		compatibility_check(t_data data)
-{
-	return (1);
 }
 
 void	make_string(t_data data, va_list list, int *count)
@@ -105,7 +107,9 @@ void	make_string(t_data data, va_list list, int *count)
 		str = ft_itoa(data, *count);
 	if (data.type == 'd' || data.type == 'i')
 		str = ft_itoa(data, va_arg(list, int));
-	if ((data.type == 'x' || data.type == 'X') || ((data.type == 'p' || data.type == 'u') || data.type == 'o'))
+	if ((data.type == 'x' || data.type == 'X') || ( data.type == 'u' || data.type == 'o'))
+		str = ft_ultoa(data, va_arg(list, unsigned int));
+	if (data.type == 'p')
 		str = ft_ultoa(data, va_arg(list, unsigned long));
 	if (data.type == 's')
 		str = ft_strdup(va_arg(list, char *), data);

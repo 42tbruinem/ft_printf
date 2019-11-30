@@ -6,7 +6,7 @@
 /*   By: tbruinem <tbruinem@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2019/11/18 18:22:54 by tbruinem       #+#    #+#                */
-/*   Updated: 2019/11/30 18:34:12 by tbruinem      ########   odam.nl         */
+/*   Updated: 2019/11/30 19:30:18 by tbruinem      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -98,7 +98,6 @@ char	*assign_numbers(t_data data, long long nb, int size, char *str)
 {
 	unsigned long long	n;
 	int					base;
-	int					width;
 
 	base = get_base(data.type);
 	n = nb;

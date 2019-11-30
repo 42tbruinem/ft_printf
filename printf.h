@@ -6,7 +6,7 @@
 /*   By: tbruinem <tbruinem@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2019/11/13 13:16:53 by tbruinem       #+#    #+#                */
-/*   Updated: 2019/11/30 18:34:56 by tbruinem      ########   odam.nl         */
+/*   Updated: 2019/11/30 18:56:53 by tbruinem      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,7 @@ void			print_data(t_data data);
 
 int				ft_printf(const char *str, ...);
 int				get_data(const char *str, va_list list, t_data *data, int *count);
-int				compatibility_check(t_data data);
+int				compatibility_check(t_data data, int *count);
 void			make_string(t_data data, va_list list, int *count);
 char			*ft_itoa(t_data data, int nb);
 long long		ft_atol(const char *str, int *size);
