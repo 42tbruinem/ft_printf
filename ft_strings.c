@@ -6,7 +6,7 @@
 /*   By: tbruinem <tbruinem@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2019/11/18 18:22:54 by tbruinem       #+#    #+#                */
-/*   Updated: 2019/11/30 18:05:15 by tbruinem      ########   odam.nl         */
+/*   Updated: 2019/11/30 18:34:12 by tbruinem      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,8 +37,10 @@ int		ft_putstr(const char *str, t_data data)
 
 int		get_base(char type)
 {
-	if (type == 'd' || type == 'i')
+	if (type == 'd' || type == 'i' || type == 'u')
 		return (10);
+	if (type == 'o')
+		return (8);
 	else if ((type == 'x' || type == 'X') || type == 'p')
 		return (16);
 	else

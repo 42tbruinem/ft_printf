@@ -6,7 +6,7 @@
 /*   By: tbruinem <tbruinem@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2019/11/13 13:16:53 by tbruinem       #+#    #+#                */
-/*   Updated: 2019/11/30 17:29:22 by tbruinem      ########   odam.nl         */
+/*   Updated: 2019/11/30 18:34:56 by tbruinem      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@
 #ifndef PRINTF_H
 # define PRINTF_H
 
-# define VALID_TYPE "cspdiuxX%"
+# define VALID_TYPE "cspdiuxXo%"
 # define VALID_FLAG	"-0.*123456789"
 
 # include <unistd.h>

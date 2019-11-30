@@ -13,7 +13,7 @@
 #include "printf.h"
 #include <stdio.h>
 
-#define INPUT "%p, %5.2d, %5c, %9s, %*x\n", &arr, -234, 'k', NULL, 5, 3454687454
+#define INPUT "%8.19o", -2345634
 //#define INPUT "%5c, %2.1s, %*x\n", 'k', "wal", 5, 345468745435345
 
 int		main(int argc, char **input)
