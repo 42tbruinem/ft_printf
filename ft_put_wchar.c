@@ -6,7 +6,7 @@
 /*   By: tbruinem <tbruinem@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2019/11/19 18:11:20 by tbruinem       #+#    #+#                */
-/*   Updated: 2019/11/20 12:28:14 by tbruinem      ########   odam.nl         */
+/*   Updated: 2019/11/30 22:03:40 by tbruinem      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,8 +27,9 @@ void print_bits(unsigned int x)
 	}
 }
 
-int		main(void)
+/* int		main(void)
 {
 	print_bits(L'ø');
 	return (0);
 }
+ */

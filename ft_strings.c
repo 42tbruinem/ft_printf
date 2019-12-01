@@ -6,11 +6,34 @@
 /*   By: tbruinem <tbruinem@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2019/11/18 18:22:54 by tbruinem       #+#    #+#                */
-/*   Updated: 2019/11/30 19:30:18 by tbruinem      ########   odam.nl         */
+/*   Updated: 2019/12/01 21:36:34 by tbruinem      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "printf.h"
+
+int		ft_putnstr(const char *str, t_data data, int len)
+{
+	int		count;
+	int		i;
+
+	i = 0;
+	if (!str)
+		return (0);
+	count = 0;
+	if (str[i] == 0 && data.type == 'c')
+	{
+		write(1, &str[i], 1);
+		count++;
+	}
+	while (i <= len)
+	{
+		write(1, &str[i], 1);
+		i++;
+		count++;
+	}
+	return (count);
+}
 
 int		ft_putstr(const char *str, t_data data)
 {
@@ -183,20 +206,3 @@ void	ft_output(char *str, t_data data, int *count)
 		}
 	free(str);
 }
-
-/* int		main(void)
-{
-	int n = 50;
-	t_data data;
-
-	data.type = 'X';
-	data.precision = 0;
-	data.direction = 0;
-	data.max_width = 5;
-	data.min_width = 0;
-	data.padding = ' ';
-
-	printf("%s\n", ft_itoa(data, -16));
-	printf("%X\n", -16);
-	return (0);
-} */

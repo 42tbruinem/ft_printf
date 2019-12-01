@@ -6,7 +6,7 @@
 /*   By: tbruinem <tbruinem@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2019/11/13 13:16:33 by tbruinem       #+#    #+#                */
-/*   Updated: 2019/11/30 18:54:33 by tbruinem      ########   odam.nl         */
+/*   Updated: 2019/12/01 21:39:09 by tbruinem      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,15 +24,14 @@ int		ft_printf(const char *str, ...)
 	{
 		if (*str == '%' && *(str + 1) != 0)
 		{
-			str += get_data(str, list, &data, &count) - 1;
+			str += get_data(str, list, &data, &count);
 			make_string(data, list, &count);
 		}
-		else if (*str == '%' && *(str + 1) == 0)
-			count = -1;
 		else
 			count += ft_putchar(*str);
 		if (count == -1)
 			break ;
+//		printf("count: %d\n", count);
 		str++;
 	}
 	va_end(list);

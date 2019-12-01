@@ -21,5 +21,6 @@ void	print_data(t_data data)
 	printf("Max_width: %d\n", data.max_width);
 	printf("Direction: %d\n", data.direction);
 	printf("Precision: %d\n", data.precision);
+	printf("Error:     %d\n", data.error);
 	printf("--------------------\n");
 }
