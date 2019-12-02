@@ -6,26 +6,11 @@
 /*   By: tbruinem <tbruinem@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2019/11/18 18:22:54 by tbruinem       #+#    #+#                */
-/*   Updated: 2019/12/02 16:07:44 by tbruinem      ########   odam.nl         */
+/*   Updated: 2019/12/02 18:27:48 by tbruinem      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "printf.h"
-
-char	*ft_calloc(int size)
-{
-	char	*new;
-	int		i;
-
-	i = 0;
-	new = (char *)malloc(sizeof(char) * size);
-	while (i < size)
-	{
-		new[i] = 0;
-		i++;
-	}
-	return (new);
-}
 
 int		ft_putstr(const char *str, t_data data)
 {
@@ -50,88 +35,19 @@ int		ft_putstr(const char *str, t_data data)
 	return (count);
 }
 
-int		get_base(char type)
+char	*ft_calloc(int size)
 {
-	if (type == 'd' || type == 'i' || type == 'u')
-		return (10);
-	if (type == 'o')
-		return (8);
-	else if ((type == 'x' || type == 'X') || type == 'p')
-		return (16);
-	else
-		return (-1);
-}
-
-char	get_addchar(char type, int number)
-{
-	if (number >= 10 && number <= 16)
-	{
-		if (type == 'x' || type == 'p')
-			return ('a' - 10);
-		if (type == 'X')
-			return ('A' - 10);
-	}
-	return ('0');
-}
-
-int		get_size(long long nb, int base, t_data data)
-{
-	int					size;
-	unsigned long long	n;
-
-	size = 0;
-	if (nb <= 0)
-	{
-		n = nb * -1;
-		size++;
-	}
-	else
-		n = nb;
-	while (n > 0)
-	{
-		size++;
-		n /= base;
-	}
-	if (data.padding == '0' && data.min_width > size)
-		return (data.min_width);
-	return (size);
-}
-
-void	zero_pad(char *str, int size)
-{
-	int i;
+	char	*new;
+	int		i;
 
 	i = 0;
+	new = (char *)malloc(sizeof(char) * size);
 	while (i < size)
 	{
-		str[i] = '0';
+		new[i] = 0;
 		i++;
 	}
-}
-
-char	*assign_numbers(t_data data, long long nb, int size, char *str)
-{
-	unsigned long long	n;
-	int					base;
-
-	base = get_base(data.type);
-	n = nb;
-	zero_pad(str, size);
-	str[size + 1] = 0;
-	if (nb < 0)
-	{
-		str[0] = '-';
-		n = nb * -1;
-	}
-	if (nb == 0 && data.precision == 0 && data.max_width >= 0)
-		str[0] = '0';
-	while (n > 0 && size >= 0)
-	{
-		str[size] = (n % base) + get_addchar(data.type, n % base);
-		n = n / base;
-		size--;
-	}
-	return (str);
+	return (new);
 }
 
 char	*ft_itoa(t_data data, int nb)
@@ -142,7 +58,6 @@ char	*ft_itoa(t_data data, int nb)
 
 	base_size = get_size(nb, get_base(data.type), data);
 	size = base_size;
-//	print_data(data);
 	if (data.precision == 1 && data.max_width >= base_size)
 		size = data.max_width;
 	if (data.precision == 1 && data.max_width >= base_size && nb <= 0)
@@ -158,29 +73,15 @@ char	*ft_ultoa(t_data data, unsigned long nb)
 	int		size;
 	char	*str;
 
-//	print_data(data);
 	base_size = get_size(nb, get_base(data.type), data);
 	size = base_size;
-	if (data.precision == 1 && data.max_width > base_size)
+	if (data.precision == 1 && data.max_width >= base_size)
 		size = data.max_width;
-//	printf("size: %d\n", size);
+	if (data.precision == 1 && data.max_width >= base_size && nb == 0)
+		size++;
 	str = ft_calloc(size + 1);
 	str = assign_numbers(data, nb, size - 1, str);
 	return (str);
-}
-
-void	ft_bzero(char *str, int len)
-{
-	int i;
-
-	i = 0;
-	if (str == NULL)
-		return ;
-	while (i < len)
-	{
-		str[i] = 0;
-		i++;
-	}
 }
 
 void	ft_output(char *str, t_data data, int *count)
@@ -189,7 +90,6 @@ void	ft_output(char *str, t_data data, int *count)
 	int len;
 
 	i = 0;
-//	print_data(data);
 	len = (int)ft_strlen(str);
 	if (data.type == 'p')
 		len += 2;
@@ -201,8 +101,6 @@ void	ft_output(char *str, t_data data, int *count)
 		}
 	if (data.type == 'p')
 		*count += ft_putstr("0x", data);
-//	print_data(data);
-//	printf("\ntype: %c, %d\n", data.type, len);
 	*count += ft_putstr(str, data);
 	if (data.direction == 1)
 		while (i < data.min_width - len)
@@ -210,6 +108,5 @@ void	ft_output(char *str, t_data data, int *count)
 			*count += ft_putchar(data.padding);
 			i++;
 		}
-//	ft_bzero(str, (int)ft_strlen(str));
 	free(str);
 }

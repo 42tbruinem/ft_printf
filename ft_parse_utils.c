@@ -1,35 +1,32 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        ::::::::            */
-/*   ft_put_wchar.c                                     :+:    :+:            */
+/*   ft_utils.c                                         :+:    :+:            */
 /*                                                     +:+                    */
 /*   By: tbruinem <tbruinem@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
-/*   Created: 2019/11/19 18:11:20 by tbruinem       #+#    #+#                */
-/*   Updated: 2019/11/30 22:03:40 by tbruinem      ########   odam.nl         */
+/*   Created: 2019/12/02 18:20:01 by tbruinem       #+#    #+#                */
+/*   Updated: 2019/12/02 18:20:13 by tbruinem      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <wchar.h>
 #include "printf.h"
 
-void print_bits(unsigned int x)
+int		match(char c, char *set)
 {
-    int i;
-	char bit;
+	int i;
 
-	i = 8 * 2;
-	while (i >= 0)
+	i = 0;
+	while (set[i])
 	{
-		bit = ((x >> i) & 1) + '0';
-		write(1, &bit, 1);
-		i--;
+		if (set[i] == c)
+			return (1);
+		i++;
 	}
-}
-
-/* int		main(void)
-{
-	print_bits(L'ø');
 	return (0);
 }
- */
+
+int		is_digit(char c)
+{
+	return (c >= '0' && c <= '9');
+}

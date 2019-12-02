@@ -23,25 +23,12 @@
 
  void	my_printf(void)
  {
-// 	printf("mine count: %d\n", ft_printf(INPUT));
 	printf("mine count: %d\n", ft_printf(INPUT));
  }
 
-int	test_shit(void)
-{
-	int t = 345;
-//	ft_printf("t5 %50.10d\n", 10);
-	ft_printf("neg7 %*.*d\n", -1586, 15, 0);
-	printf("neg7 %*.*d\n", -1586, 15, 0);
-	return(0);
-}
-
 int		main(int argc, char **argv)
 {
-// 	ft_printf(INPUT);
-	return (test_shit());
 	my_printf();
-	printf("\n");
+//	printf("\n");
 	printf("real count: %d\n", printf(INPUT));
-//	ft_printf(INPUT);
 }
