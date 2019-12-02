@@ -6,7 +6,7 @@
 /*   By: tbruinem <tbruinem@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2019/11/13 13:16:53 by tbruinem       #+#    #+#                */
-/*   Updated: 2019/12/01 21:35:09 by tbruinem      ########   odam.nl         */
+/*   Updated: 2019/12/02 12:14:08 by tbruinem      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,20 +35,20 @@ typedef	struct	s_data
 	char		padding;
 	int			direction;
 	int			precision;
-	int			error;
+//	int			error;
 }				t_data;
 
 void			print_data(t_data data);
 
 int				ft_printf(const char *str, ...);
+char			*ft_calloc(int size);
 int				get_data(const char *str, va_list list, t_data *data, int *count);
-void			compatibility_check(const char *str, t_data *data, int *count, int len);
+void			compatibility_check(t_data *data, int *count);
 void			make_string(t_data data, va_list list, int *count);
 char			*ft_itoa(t_data data, int nb);
 long long		ft_atol(const char *str, int *size);
 int				match(char c, char *set);
 int				ft_putstr(const char *str, t_data data);
-int				ft_putnstr(const char *str, t_data data, int len);
 void			ft_output(char *str, t_data data, int *count);
 size_t			ft_strlen(const char *str);
 int				ft_putchar(char c);

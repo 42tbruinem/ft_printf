@@ -6,7 +6,7 @@
 /*   By: tbruinem <tbruinem@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2019/11/18 16:45:26 by tbruinem       #+#    #+#                */
-/*   Updated: 2019/12/01 21:43:54 by tbruinem      ########   odam.nl         */
+/*   Updated: 2019/12/02 15:52:38 by tbruinem      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,25 +43,20 @@ int		get_flags(t_data *data, const char *str, va_list list)
 		data->precision = 1;
 		data->padding = ' ';
 	}
-	else if (data->precision == 1 && (*str >= '1' && *str <= '9') && data->max_width == -1)
+	else if (data->precision == 1 && (*str >= '0' && *str <= '9') && data->max_width == -1)
 		data->max_width = ft_atol(str, &size);
-	else if (data->precision == 0 && (*str >= '1' && *str <= '9') && data->min_width == -1)
+	else if (data->precision == 0 && (*str >= '1' && *str <= '9') && data->min_width == 0)
 		data->min_width = ft_atol(str, &size);
-	else if (data->precision == 0 && *str == '*' && data->min_width == -1)
+	else if (data->precision == 0 && *str == '*' && data->min_width == 0)
 		data->min_width = va_arg(list, int);
 	else if (data->precision == 1 && *str == '*' && data->max_width == -1)
 		data->max_width = va_arg(list, int);
-	else
-		data->error = 1;
 	return (size);
 }
 
-void	compatibility_check(const char *str, t_data *data, int *count, int len)
+void	compatibility_check(t_data *data, int *count)
 {
-//	print_data(*data);
-	if (data->error == 1)
-		*count += ft_putnstr(str, *data, len);
-	else if (data->type == 0)
+	if (data->type == 0)
 		*count = -1;
 	if (data->max_width < 0)
 	{
@@ -69,7 +64,11 @@ void	compatibility_check(const char *str, t_data *data, int *count, int len)
 		data->max_width = 0;
 	}
 	if (data->min_width < 0)
-		data->min_width = 0;
+	{
+		data->direction = 1;
+		data->min_width = data->min_width * -1;
+	}
+//	print_data(*data);
 //	printf("count: %d\n", *count);
 }
 
@@ -78,13 +77,12 @@ int		get_data(const char *str, va_list list, t_data *data, int *count)
 	int i;
 
 	i = 1;
-	data->min_width = -1;
+	data->min_width = 0;
 	data->max_width = -1;
 	data->type = 0;
 	data->direction = 0;
 	data->padding = ' ';
 	data->precision = 0;
-	data->error = 0;
 	while (match(str[i], VALID_TYPE) == 0 && str[i])
 	{
 		if (match(str[i], VALID_FLAG) == 1)
@@ -96,7 +94,7 @@ int		get_data(const char *str, va_list list, t_data *data, int *count)
 		data->type = str[i];
 	if (str[i] == 0)
 		i--;
-	compatibility_check(str, data, count, i);
+	compatibility_check(data, count);
 	return (i);
 }
 
@@ -105,11 +103,11 @@ void	make_string(t_data data, va_list list, int *count)
 	char	*str;
 
 	str = NULL;
-	if (data.type == 0 || data.error == 1)
+	if (data.type == 0)
 		return ;
 	if (data.type == 'c' || data.type == '%')
 	{
-		str = (char *)malloc(2);
+		str = (char *)ft_calloc(2);
 		str[0] = data.type;
 		if (data.type == 'c')
 			str[0] = va_arg(list, int);

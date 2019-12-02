@@ -6,33 +6,25 @@
 /*   By: tbruinem <tbruinem@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2019/11/18 18:22:54 by tbruinem       #+#    #+#                */
-/*   Updated: 2019/12/01 21:36:34 by tbruinem      ########   odam.nl         */
+/*   Updated: 2019/12/02 16:07:44 by tbruinem      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "printf.h"
 
-int		ft_putnstr(const char *str, t_data data, int len)
+char	*ft_calloc(int size)
 {
-	int		count;
+	char	*new;
 	int		i;
 
 	i = 0;
-	if (!str)
-		return (0);
-	count = 0;
-	if (str[i] == 0 && data.type == 'c')
+	new = (char *)malloc(sizeof(char) * size);
+	while (i < size)
 	{
-		write(1, &str[i], 1);
-		count++;
-	}
-	while (i <= len)
-	{
-		write(1, &str[i], 1);
+		new[i] = 0;
 		i++;
-		count++;
 	}
-	return (count);
+	return (new);
 }
 
 int		ft_putstr(const char *str, t_data data)
@@ -128,10 +120,10 @@ char	*assign_numbers(t_data data, long long nb, int size, char *str)
 	str[size + 1] = 0;
 	if (nb < 0)
 	{
-			str[0] = '-';
+		str[0] = '-';
 		n = nb * -1;
 	}
-	if (nb == 0)
+	if (nb == 0 && data.precision == 0 && data.max_width >= 0)
 		str[0] = '0';
 	while (n > 0 && size >= 0)
 	{
@@ -151,12 +143,11 @@ char	*ft_itoa(t_data data, int nb)
 	base_size = get_size(nb, get_base(data.type), data);
 	size = base_size;
 //	print_data(data);
-	if (data.precision == 1 && data.max_width > base_size)
+	if (data.precision == 1 && data.max_width >= base_size)
 		size = data.max_width;
-	if (data.precision == 1 && data.max_width >= base_size && nb < 0)
+	if (data.precision == 1 && data.max_width >= base_size && nb <= 0)
 		size++;
-//	printf("%d\n", size);
-	str = malloc(size + 1);
+	str = ft_calloc(size + 1);
 	str = assign_numbers(data, nb, size - 1, str);
 	return (str);
 }
@@ -172,9 +163,24 @@ char	*ft_ultoa(t_data data, unsigned long nb)
 	size = base_size;
 	if (data.precision == 1 && data.max_width > base_size)
 		size = data.max_width;
-	str = malloc(size + 1);
+//	printf("size: %d\n", size);
+	str = ft_calloc(size + 1);
 	str = assign_numbers(data, nb, size - 1, str);
 	return (str);
+}
+
+void	ft_bzero(char *str, int len)
+{
+	int i;
+
+	i = 0;
+	if (str == NULL)
+		return ;
+	while (i < len)
+	{
+		str[i] = 0;
+		i++;
+	}
 }
 
 void	ft_output(char *str, t_data data, int *count)
@@ -204,5 +210,6 @@ void	ft_output(char *str, t_data data, int *count)
 			*count += ft_putchar(data.padding);
 			i++;
 		}
+//	ft_bzero(str, (int)ft_strlen(str));
 	free(str);
 }
