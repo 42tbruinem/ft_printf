@@ -6,7 +6,7 @@
 /*   By: tbruinem <tbruinem@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2019/11/13 13:16:53 by tbruinem       #+#    #+#                */
-/*   Updated: 2019/12/02 18:36:00 by tbruinem      ########   odam.nl         */
+/*   Updated: 2019/12/02 19:03:09 by tbruinem      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,9 +43,12 @@ long long		ft_atol(const char *str, int *size);
 int				match(char c, char *set);
 int				ft_putstr(const char *str, t_data data);
 void			ft_output(char *str, t_data data, int *count);
-size_t			ft_strlen(const char *str);
+size_t			ft_strlen(const char *str, t_data data);
 int				ft_putchar(char c);
 char			*ft_convert_int(t_data data, long long nb);
+int				get_base(char type);
+char			*assign_numbers(t_data data, long long nb, int size, char *str);
+int				get_size(long long nb, int base, t_data data);
 char			*ft_strdup(const char *s1, t_data data);
 void			zero_pad(char *str, int size);
 char			*ft_ultoa(t_data data, unsigned long nb);

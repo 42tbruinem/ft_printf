@@ -6,7 +6,7 @@
 /*   By: tbruinem <tbruinem@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2019/11/18 18:22:54 by tbruinem       #+#    #+#                */
-/*   Updated: 2019/12/02 18:27:48 by tbruinem      ########   odam.nl         */
+/*   Updated: 2019/12/02 19:01:11 by tbruinem      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,7 +90,7 @@ void	ft_output(char *str, t_data data, int *count)
 	int len;
 
 	i = 0;
-	len = (int)ft_strlen(str);
+	len = (int)ft_strlen(str, data);
 	if (data.type == 'p')
 		len += 2;
 	if (data.direction == 0)
