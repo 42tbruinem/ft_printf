@@ -6,7 +6,7 @@
 /*   By: tbruinem <tbruinem@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2019/11/18 16:45:26 by tbruinem       #+#    #+#                */
-/*   Updated: 2019/12/02 18:21:04 by tbruinem      ########   odam.nl         */
+/*   Updated: 2019/12/09 19:01:37 by tbruinem      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,6 +52,7 @@ void	compatibility_check(t_data *data, int *count)
 	if (data->min_width < 0)
 	{
 		data->direction = 1;
+		data->padding = ' ';
 		data->min_width = data->min_width * -1;
 	}
 }
@@ -87,16 +88,8 @@ void	make_string(t_data data, va_list list, int *count)
 	char	*str;
 
 	str = NULL;
-	if (data.type == 0)
-		return ;
 	if (data.type == 'c' || data.type == '%')
-	{
-		str = (char *)ft_calloc(2);
-		str[0] = data.type;
-		if (data.type == 'c')
-			str[0] = va_arg(list, int);
-		str[1] = 0;
-	}
+		str = ft_convert_c(data, list);
 	if (data.type == 'n')
 		str = ft_itoa(data, *count);
 	if (data.type == 'd' || data.type == 'i')
@@ -108,5 +101,10 @@ void	make_string(t_data data, va_list list, int *count)
 		str = ft_ultoa(data, va_arg(list, unsigned long));
 	if (data.type == 's')
 		str = ft_strdup(va_arg(list, char *), data);
+	if (str == NULL || data.type == 0)
+	{
+		*count = -1;
+		return ;
+	}
 	ft_output(str, data, count);
 }

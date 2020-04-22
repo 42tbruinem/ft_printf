@@ -1,38 +1,30 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        ::::::::            */
-/*   ft_printf.c                                        :+:    :+:            */
+/*   ft_string_utils.c                                  :+:    :+:            */
 /*                                                     +:+                    */
 /*   By: tbruinem <tbruinem@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
-/*   Created: 2019/11/13 13:16:33 by tbruinem       #+#    #+#                */
-/*   Updated: 2019/12/12 10:36:57 by tbruinem      ########   odam.nl         */
+/*   Created: 2019/12/09 18:56:57 by tbruinem       #+#    #+#                */
+/*   Updated: 2019/12/09 18:57:04 by tbruinem      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "printf.h"
 
-int		ft_printf(const char *str, ...)
+char	*ft_calloc(int size)
 {
-	va_list	list;
-	t_data	data;
-	int		count;
+	char	*new;
+	int		i;
 
-	count = 0;
-	va_start(list, str);
-	while (*str)
+	i = 0;
+	new = (char *)malloc(sizeof(char) * size);
+	if (new == NULL)
+		return (NULL);
+	while (i < size)
 	{
-		if (*str == '%')
-		{
-			str += get_data(str, list, &data, &count);
-			make_string(data, list, &count);
-		}
-		else
-			count += ft_putchar(*str);
-		if (count == -1)
-			break ;
-		str++;
+		new[i] = 0;
+		i++;
 	}
-	va_end(list);
-	return (count);
+	return (new);
 }

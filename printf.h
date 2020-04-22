@@ -6,7 +6,7 @@
 /*   By: tbruinem <tbruinem@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2019/11/13 13:16:53 by tbruinem       #+#    #+#                */
-/*   Updated: 2019/12/02 19:03:09 by tbruinem      ########   odam.nl         */
+/*   Updated: 2019/12/09 19:02:51 by tbruinem      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,5 +52,10 @@ int				get_size(long long nb, int base, t_data data);
 char			*ft_strdup(const char *s1, t_data data);
 void			zero_pad(char *str, int size);
 char			*ft_ultoa(t_data data, unsigned long nb);
+int				get_ulsize(unsigned long n, int base, t_data data);
+char			*assign_ulnumbers(t_data data, unsigned long n, int size,
+				char *str);
+char			get_addchar(char type, int number);
+char			*ft_convert_c(t_data data, va_list list);
 
 #endif
